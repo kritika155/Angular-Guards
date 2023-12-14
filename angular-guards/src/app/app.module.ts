@@ -12,7 +12,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProductServiceModule } from './modules/product-service/product-service.module';
 import { AuthGuard } from './guards/auth.guard';
-
+import { ParentComponent } from './components/parent/parent.component';
+import { ChildComponent } from './components/child/child.component';
+import { ProductComponent } from './product/product.component';
+import { StoreModule } from '@ngrx/store';
+import { addProductReducer } from './reducers/product.reducer';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +25,9 @@ import { AuthGuard } from './guards/auth.guard';
     ProductDetailsComponent,
     ProductOffersComponent,
     ProductRatingsComponent,
+    ParentComponent,
+    ChildComponent,
+    ProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +36,7 @@ import { AuthGuard } from './guards/auth.guard';
     ReactiveFormsModule,
     FormsModule,
     ProductServiceModule,
+    StoreModule.forRoot({ product: addProductReducer }),
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],

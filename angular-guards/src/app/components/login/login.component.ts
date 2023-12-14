@@ -23,7 +23,9 @@ export class LoginComponent {
       password: ['', Validators.required],
     });
   }
-
+  updateValue() {
+    this.authService.setValue(true);
+  }
   onSubmit(): void {
     if (this.loginForm.valid) {
       const username = this.loginForm.get('username').value;
@@ -32,9 +34,13 @@ export class LoginComponent {
       // Call the authentication service's login method
       if (this.authService.login(username, password)) {
         // Navigate to the ProductListComponent upon successful login
-        this.router.navigate(['/product-list']);
+        this.updateValue();
+        this.router.navigate(['/products']);
       } else {
         // Handle authentication error (show error message, etc.)
+        this.loginForm.get('username').setValue('');
+        this.loginForm.get('password').setValue('');
+        alert('Sorry,user does not exist');
       }
     }
   }

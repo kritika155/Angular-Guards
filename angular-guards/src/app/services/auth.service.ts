@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -6,13 +7,15 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   private isAuthenticated = false;
   private authSecretKey = 'Bearer Token';
-
+  private myBehaviorSubject = new BehaviorSubject<boolean>(
+    this.isAuthenticated
+  );
   constructor() {
     this.isAuthenticated = !!localStorage.getItem(this.authSecretKey);
   }
 
   login(username: string, password: string): boolean {
-    if (username === 'Jaydeep Patil' && password === 'Pass@123') {
+    if (username === 'Kritika Roy' && password === 'Pass@123') {
       const authToken =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpheWRlZXAgUGF0aWwiLCJpYXQiOjE1MTYyMzkwMjJ9.yt3EOXf60R62Mef2oFpbFh2ihkP5qZ4fM8bjVnF8YhA'; // Generate or receive the token from your server
       localStorage.setItem(this.authSecretKey, authToken);
@@ -22,7 +25,13 @@ export class AuthService {
       return false;
     }
   }
+  setValue(value: boolean) {
+    this.myBehaviorSubject.next(value);
+  }
 
+  getValue() {
+    return this.myBehaviorSubject.asObservable();
+  }
   isAuthenticatedUser(): boolean {
     return this.isAuthenticated;
   }

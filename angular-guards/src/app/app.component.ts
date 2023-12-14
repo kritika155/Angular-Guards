@@ -8,11 +8,20 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'angular-guards';
-
-  constructor(private authService: AuthService, private router: Router) {}
+  flag?: any;
+  constructor(private authService: AuthService, private router: Router) {
+    this.authService.getValue().subscribe((e) => {
+      this.flag = e.valueOf();
+    });
+    console.log('Flag Signals:', this.flag);
+  }
+  updateValue() {
+    this.authService.setValue(false);
+  }
 
   logout(): void {
     this.authService.logout();
+    this.updateValue();
     this.router.navigate(['/login']);
   }
 }

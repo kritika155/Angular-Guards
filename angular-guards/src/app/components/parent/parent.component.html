@@ -1,0 +1,9 @@
+Message: {{ message }}<br />
+<app-child
+  [childMessage]="parentMessage"
+  (messageEvent)="receiveMessage($event)"
+>
+  <strong class="app">Senior Developer</strong>
+  <strong class="app1">Experience : 5 years</strong>
+</app-child>
+<app-product></app-product>

@@ -6,15 +6,22 @@ import { LoginComponent } from './components/login/login.component';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { ProductRatingsComponent } from './components/product-ratings/product-ratings.component';
 import { ProductOffersComponent } from './components/product-offers/product-offers.component';
-
+import { ParentComponent } from './components/parent/parent.component';
+import { ChildComponent } from './components/child/child.component';
 const routes: Routes = [
   {
-    path: 'products',
+    path: '',
     component: ProductListComponent,
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
   { path: 'login', component: LoginComponent },
+  { path: 'parent', component: ParentComponent },
+  {
+    path: 'products',
+    component: ProductListComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: 'products',
     component: ProductListComponent,
